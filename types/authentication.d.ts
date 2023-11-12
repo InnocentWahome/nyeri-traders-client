@@ -32,8 +32,6 @@ declare interface IUser {
   phoneNumber: string;
   password: string;
   role: string;
-  hasOrganization: boolean;
-  organization_id: string | number;
 }
 
 declare interface IRegister {
@@ -43,8 +41,6 @@ declare interface IRegister {
   phoneNumber: string;
   password: string;
   role: string;
-  hasOrganization: boolean;
-  organization_id: string | number;
 }
 
 declare interface IRegisterResponse {
