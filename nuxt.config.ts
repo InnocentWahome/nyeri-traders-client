@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
   runtimeConfig: {
     nodeEnv: process.env.NUXT_NODE_ENV || "development",
     public: {
