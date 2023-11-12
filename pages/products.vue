@@ -74,10 +74,29 @@ const columns = ref<TableColumnsType>([
 function handleResizeColumn(w: any, col: any) {
   col.width = w;
 }
+
+const showEditProduct = ref<boolean>(false);
+
+const showDeleteProduct = ref<boolean>(false);
+
+const openEditProduct = (product_id: string | number) => {
+  showEditProduct.value = true;
+  console.log("product", product_id);
+};
+
+const openDeleteProduct = (
+  product_id: string | number
+) => {
+  showDeleteProduct.value = true;
+  console.log("product", product_id);
+};
+
+const saveEditedProduct = () => {
+  showEditProduct.value = false;
+};
 </script>
 
 <template>
-  <!-- {{ products }} -->
   <div>
     <a-table
       :dataSource="products"
@@ -90,7 +109,10 @@ function handleResizeColumn(w: any, col: any) {
       <template #bodyCell="{ column, record }">
         <!-- Image -->
         <template v-if="column.key === 'image'">
-          <v-img :src="record.image" style="border-radius: 50%; height: 50px; width: 50px;" />
+          <v-img
+            :src="record.image"
+            style="border-radius: 50%; height: 50px; width: 50px"
+          />
         </template>
 
         <!-- Seller -->
@@ -109,11 +131,45 @@ function handleResizeColumn(w: any, col: any) {
 
         <!-- Actions -->
         <template v-if="column.key === 'action'">
-          <DeleteOutlined style="cursor: pointer" />
+          <DeleteOutlined
+            style="cursor: pointer"
+            @click="openDeleteProduct(record.id)"
+          />
           <a-divider type="vertical" />
-          <EditOutlined style="cursor: pointer" />
+          <EditOutlined
+            style="cursor: pointer"
+            @click="openEditProduct(record.id)"
+          />
         </template>
       </template>
     </a-table>
+
+    <!-- ---------------------------------------------- -->
+    <!--Edit product -->
+    <!-- ---------------------------------------------- -->
+    <a-drawer
+      title="Edit product"
+      :open="showEditProduct"
+      @close="saveEditedProduct"
+    >
+      <FormsProductForm />
+    </a-drawer>
+    <!-- ---------------------------------------------- -->
+    <!--Delete product modal -->
+    <!-- ---------------------------------------------- -->
+    <a-drawer
+      title="Delete product"
+      :open="showDeleteProduct"
+      :footer-style="{ textAlign: 'right' }"
+      @close="showDeleteProduct = false"
+    >
+      <p>Do you want to delete this product?</p>
+      <a-space>
+        <a-button @click="showDeleteProduct = false">Cancel</a-button>
+        <a-button type="primary" @click="showDeleteProduct = false"
+          >Submit</a-button
+        >
+      </a-space>
+    </a-drawer>
   </div>
 </template>
