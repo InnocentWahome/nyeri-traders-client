@@ -11,7 +11,6 @@ const onFinishFailed = (errorInfo: any) => {
 </script>
 
 <template>
-  <h1>Register Form</h1>
   <a-form
     :model="registerFormState"
     name="basic"
