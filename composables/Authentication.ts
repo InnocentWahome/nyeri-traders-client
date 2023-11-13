@@ -127,6 +127,26 @@ export function useAuthentication() {
     }
   };
 
+    /**
+   * ---------------------------------------------------
+   * Logout
+   * ---------------------------------------------------
+   *
+   */
+    const logout = async () => {
+      try {
+        userEmail.value = null
+        userRole.value = null
+        userName.value = null
+        userPhone.value = null
+        userId.value = null
+        accessToken.value = null
+        router.push("/login");
+      } catch (error) {
+        console.log("Error from register", error);
+      }
+    };
+
 
   return {
     loginFormState,

@@ -13,7 +13,6 @@ const getAllOrders = await useApi(`/order/buyers-orders/${userId.value}`, {
   method: "GET",
 });
 
-
 orders.value = getAllOrders?.data;
 
 const columns = ref<TableColumnsType>([
