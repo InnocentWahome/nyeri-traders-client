@@ -6,7 +6,16 @@ export function useAuthentication() {
   // const { getLoggedInUser } = useUsers();
 
   const userId = useCookie<string | number>("user_id");
+
   const accessToken = useCookie("access_token");
+
+  const userRole = useCookie('user_role')
+
+  const userName = useCookie('user_name')
+
+  const userEmail = useCookie('user_email')
+
+  const userPhone = useCookie('user_phone')
 
   const route = useRoute();
 
@@ -43,11 +52,19 @@ export function useAuthentication() {
           placement: "bottomRight",
         });
 
+        console.log("user from login-----------------", response?.data?.data?.user);
+
         userId.value = response?.data?.data?.user?.id;
 
         accessToken.value = response?.data?.data?.token?.token;
 
-        // await getLoggedInUser(userId.value);
+        userRole.value = response?.data?.data?.user?.role;
+
+        userName.value = response?.data?.data?.user?.firstName + " " + response?.data?.data?.user?.lastName;
+
+        userEmail.value = response?.data?.data?.user?.email;
+
+        userPhone.value = response?.data?.data?.user?.phoneNumber;
 
         router.push("/products");
       } else if (
